@@ -105,12 +105,33 @@
   force(expr)
 }
 
-#' Make a control step that is quieter and faster
+#' Make an estimation control object quieter and faster
 #'
-#' @param ctl the control object
-#' @return A faster and quieter control object
+#' `setQuietFastControl()` is a small utility for repeated model evaluations
+#' where full iteration printing, covariance estimation, table generation, and
+#' object compression are unnecessary. It returns the input control object after
+#' forcing a small set of fields to faster, quieter defaults.
+#'
+#' Specifically, it sets:
+#'
+#' * `print = 0`
+#' * `covMethod = 0`
+#' * `calcTables = FALSE`
+#' * `compress = FALSE`
+#'
+#' @param ctl A control object, typically a named list passed to an
+#'   `nlmixr2()` estimation routine.
+#' @return The modified control object.
+#' @examples
+#' ctl <- list(
+#'   print = 100,
+#'   covMethod = "r,s",
+#'   calcTables = TRUE,
+#'   compress = TRUE
+#' )
+#'
+#' setQuietFastControl(ctl)
 #' @export
-#' @noRd
 setQuietFastControl <- function(ctl) {
   # make estimation steps quieter
   ctl$print <- 0L
