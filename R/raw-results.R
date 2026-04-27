@@ -229,7 +229,10 @@
   ]
 
   diag_rows <- omega_rows[omega_rows$neta1 == omega_rows$neta2, , drop = FALSE]
-  idx_to_name <- setNames(diag_rows$name, as.character(diag_rows$neta1))
+  idx_to_name <- stats::setNames(
+    diag_rows$name,
+    as.character(diag_rows$neta1)
+  )
   row_names <- rownames(omega_mat)
   col_names <- colnames(omega_mat)
 
@@ -432,12 +435,12 @@
   if (grepl("^['\"].*['\"]$", x)) {
     return(sub("^['\"](.*)['\"]$", "\\1", x))
   }
-  type.convert(x, as.is = TRUE)
+  utils::type.convert(x, as.is = TRUE)
 }
 
 .vectorWithNames <- function(x, target_names, arg) {
   if (is.null(x)) {
-    return(setNames(numeric(0), character(0)))
+    return(stats::setNames(numeric(0), character(0)))
   }
   nms <- names(x)
   x <- as.numeric(x)
